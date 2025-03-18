@@ -1,8 +1,10 @@
 Feature: Login
 
+  Background:
+    Given Je visite la page de connexion "http://192.168.1.95:9091/admin"
+
   @positive
   Scenario: Successful login
-    Given Je visite la page de connexion "http://localhost:9091/admin"
     When Je saisis "testeur_integration" dans le champ Nom d utilisateur
     And Je saisis "testeur_qa" dans le champ Mot de passe
     And Je clique sur le bouton login
@@ -10,7 +12,6 @@ Feature: Login
 
   @negative
   Scenario: Failed login avec username incorrect et password correct
-    Given Je visite la page de connexion "http://localhost:9091/admin"
     When Je saisis "testeur_integration" dans le champ Nom d utilisateur
     And Je saisis "testeur_qa" dans le champ Mot de passe
     And Je clique sur le bouton login
@@ -18,7 +19,6 @@ Feature: Login
 
   @negative
   Scenario: Failed login avec username correct et password incorrect
-    Given Je visite la page de connexion "http://localhost:9091/admin"
     When Je saisis "testeur_integration" dans le champ Nom d utilisateur
     And Je saisis "testeur_qa" dans le champ Mot de passe
     And Je clique sur le bouton login
