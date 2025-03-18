@@ -13,7 +13,7 @@
     "video": "PWVIDEO=1 npm run cucumber ",
     "format": "prettier --write \"**/*.{ts,tsx,css,html}\" ",
     "lint": "eslint",
-    "only": "npm run cucumber -- --tags @only",
+    "only": "npm run cucumber -- --tags ",
     "report": "open reports/report.html",
     "snippets": "npm run cucumber  features/**/*.feature --dry-run --format snippets",
     "steps-usage": "tsx node_modules/@cucumber/cucumber/bin/cucumber.js features/**/*.feature --dry-run",
@@ -28,14 +28,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tallyb/cucumber7-playwright.git"
+    "url": "git+https://github.com/hocinilotfi/playwright-cucumber-typescript-template.git"
   },
   "author": "Tally Barak",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tallyb/cucumber-playwright/issues"
+    "url": "https://github.com/hocinilotfi/playwright-cucumber-typescript-template/issues"
   },
-  "homepage": "https://github.com/tallyb/cucumber-playwright#readme",
+  "homepage": "https://github.com/hocinilotfi/playwright-cucumber-typescript-template.git#readme",
   "devDependencies": {
     "@cucumber/cucumber": "11.1.1",
     "@cucumber/html-formatter": "21.7.0",

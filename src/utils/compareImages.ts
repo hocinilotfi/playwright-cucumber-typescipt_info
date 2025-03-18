@@ -1,13 +1,13 @@
 // Added by https://github.com/ortsevlised
 
-import { config } from '../support/config';
-import { ICustomWorld } from '../support/custom-world';
-import { ensureFile, pathExists } from 'fs-extra';
-import pixelmatch from 'pixelmatch';
-import { PNG } from 'pngjs';
-import * as fs from 'fs';
-import { writeFileSync } from 'fs';
-import { join } from 'path';
+import { config } from "../support/config";
+import { ICustomWorld } from "../support/custom-world";
+import { ensureFile, pathExists } from "fs-extra";
+import pixelmatch from "pixelmatch";
+import { PNG } from "pngjs";
+import * as fs from "fs";
+import { writeFileSync } from "fs";
+import { join } from "path";
 
 /**
  * Compares a screenshot to a base image,
@@ -25,21 +25,21 @@ interface ImagePathOptions {
 export function getImagePath(
   customWorld: ICustomWorld,
   name: string,
-  options?: ImagePathOptions
+  options?: ImagePathOptions,
 ): string {
   return join(
-    'screenshots',
-    customWorld.feature?.uri ?? '',
-    options?.skipOs ? '' : process.platform,
+    "screenshots",
+    customWorld.feature?.uri ?? "",
+    options?.skipOs ? "" : process.platform,
     config.browser,
-    `${name}.png`
+    `${name}.png`,
   );
 }
 export async function compareToBaseImage(
   customWorld: ICustomWorld,
   name: string,
   screenshot: Buffer,
-  threshold?: { threshold: number }
+  threshold?: { threshold: number },
 ) {
   let baseImage;
   const baseImagePath = getImagePath(customWorld, name);
@@ -50,14 +50,14 @@ export async function compareToBaseImage(
     await ensureFile(baseImagePath);
     writeFileSync(baseImagePath, screenshot);
     customWorld.log(
-      `The base Image doesn't exist, a screenshot was taken to ${baseImagePath} so it can be used for next run`
+      `The base Image doesn't exist, a screenshot was taken to ${baseImagePath} so it can be used for next run`,
     );
     return;
   }
   const img1 = PNG.sync.read(screenshot);
   const difference = getDifference(img1, baseImage, threshold);
   if (difference) {
-    customWorld.attach(difference, 'image/png;base64');
+    customWorld.attach(difference, "image/png;base64");
     throw new Error(`Screenshot does not match : ${baseImagePath}`);
   }
 }
@@ -71,11 +71,18 @@ export async function compareToBaseImage(
 export function getDifference(
   img1: PNG,
   img2: PNG,
-  threshold = config.IMG_THRESHOLD
+  threshold = config.IMG_THRESHOLD,
 ): Buffer | undefined {
   const { width, height } = img2;
   const diff = new PNG({ width, height });
-  const difference = pixelmatch(img1.data, img2.data, diff.data, width, height, threshold);
+  const difference = pixelmatch(
+    img1.data,
+    img2.data,
+    diff.data,
+    width,
+    height,
+    threshold,
+  );
   if (difference > 0) {
     return PNG.sync.write(diff);
   }
