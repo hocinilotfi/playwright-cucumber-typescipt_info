@@ -24,7 +24,8 @@ pipeline {
         stage('test') {
             steps {
                 script {
-                    sh "npm run only '${params.CHOICE_TAG}'"
+                    // sh "npm run only '${params.CHOICE_TAG}'"
+                    sh "npm run test"
                 }
             }
 
